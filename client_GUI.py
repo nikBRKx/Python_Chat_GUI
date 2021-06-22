@@ -120,7 +120,10 @@ class Client(object):
         
     def send_message(self):
         #send messages from textBox to server
-        msg = self.chat_ui.sendText.text()
+        msg = self.chat_ui.sendText.text().strip()
+        if len(msg) == 0:
+            return
+            
         now = str(datetime.now())[11:16]
         self.chat_ui.textBrowser.append(f'[{now}] - Me: {msg}')
         #print('send: ' + msg)
