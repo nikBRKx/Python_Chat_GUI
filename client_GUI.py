@@ -7,24 +7,35 @@ import socket
 import random
 from datetime import datetime
 
+
 class listener(QtCore.QThread):
     signal = QtCore.pyqtSignal(str)
+    running = True
 
-    def __init__(self, client_socket):
+    def __init__(self, client_socket, client):
         # get the parent constructor
         super(listener, self).__init__()
         self.client_socket = client_socket
+        self.client = client
 
     def run(self):
-        while True:
+        while self.running:
             self.receive_message()
 
     def receive_message(self):
-        message = self.client_socket.recv(1024)
-        message = message.decode('utf-8')
+        try:
+            message = self.client_socket.recv(1024)
+            message = message.decode('utf-8')
 
-        #print(message)
-        self.signal.emit(message)
+            #print(message)
+            self.signal.emit(message)
+
+        except:
+            print("Error 404 - Server not found")
+            error = 'Unable to reach server.'
+            print('[INFO]', error)
+            self.client.show_error('Server Error', error)
+            self.running = False
 
 
 
@@ -89,7 +100,7 @@ class Client(object):
                 self.chatWidget.setVisible(True) #chat window visible
 
                 #start listender Thread to receive msgs
-                self.recv_thread = listener(self.client)
+                self.recv_thread = listener(self.client, self)
                 self.recv_thread.signal.connect(self.print_message)
                 self.recv_thread.start()
                 print("[INFO] recv thread started")
