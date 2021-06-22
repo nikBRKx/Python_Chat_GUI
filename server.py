@@ -109,7 +109,7 @@ def receive():
             with open(directory + '/history.txt','r') as text_file:
                 history = text_file.read()
         #send chat history to client
-        client.send('Previous chat history: \n'.encode('utf-8'))
+        client.send('[Admin] Previous chat history: \n'.encode('utf-8'))
         client.send(history.encode('utf-8'))
 
         #send commands
