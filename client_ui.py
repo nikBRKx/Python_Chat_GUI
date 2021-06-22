@@ -32,9 +32,11 @@ class Ui_MainWindow(object):
         font.setBold(True)
         self.sendText.setFont(font)
         self.sendText.setPlaceholderText("Enter a message")
+        self.sendText.setStyleSheet("background-color: lightgreen")
         #text browser
         self.textBrowser = QtWidgets.QTextBrowser(Form)
         self.textBrowser.setGeometry(QtCore.QRect(10, 10, 300, 350))
+        self.textBrowser.setStyleSheet("background-color: lightgreen")
         font = QtGui.QFont('Arial')
         font.setPointSize(10)
         font.setBold(True)

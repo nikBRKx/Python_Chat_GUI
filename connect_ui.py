@@ -12,8 +12,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Connect_Ui(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(398, 279)
+        #Form.resize(400, 400)
+        Form.setFixedSize(400, 200)
         Form.setWindowTitle("Python Retina Chat")
+
         self.centralwidget = QtWidgets.QWidget(Form)
         #host text
         self.hostText = QtWidgets.QPlainTextEdit(Form)

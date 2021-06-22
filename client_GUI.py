@@ -46,6 +46,9 @@ class Client(object):
         self.mainWindow = QtWidgets.QMainWindow()
          # add widgets to the application window
         self.connectWidget = QtWidgets.QWidget(self.mainWindow)
+        self.mainWindow.setWindowTitle("Python Retina Chat")
+        self.mainWindow.setFixedSize(350, 250)
+        self.connectWidget.setWindowTitle("Python Retina Chat")
         self.chatWidget = QtWidgets.QWidget(self.mainWindow)
         self.chatWidget.setHidden(True) # chat window not visible
         #chat window 
@@ -98,7 +101,7 @@ class Client(object):
             try:
                 self.connectWidget.setHidden(True) #connect window not visible
                 self.chatWidget.setVisible(True) #chat window visible
-
+                self.mainWindow.setFixedSize(320, 510)
                 #start listender Thread to receive msgs
                 self.recv_thread = listener(self.client, self)
                 self.recv_thread.signal.connect(self.print_message)
