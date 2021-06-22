@@ -34,7 +34,7 @@ class listener(QtCore.QThread):
         except:
             print("Error 404 - Server not found")
             error = 'Unable to reach server.'
-            print('[INFO]', error)
+            print('[Admin]', error)
             self.client.show_error('Server Error', error)
             self.running = False
 
@@ -88,7 +88,7 @@ class Client(object):
             except Exception as e:
                 #if port isnt an int
                 error = "Invalid port number \n'{}'".format(str(e))
-                print("[INFO]", error)
+                print("[Admin]", error)
                 self.show_error("Port Number Error", error)
         
         if len(nickname) < 1:
@@ -106,7 +106,7 @@ class Client(object):
                 self.recv_thread = listener(self.client, self)
                 self.recv_thread.signal.connect(self.print_message)
                 self.recv_thread.start()
-                print("[INFO] recv thread started")
+                print("[Admin] recv thread started")
             except:
                 print('Server offline...')
 
@@ -121,11 +121,11 @@ class Client(object):
             self.client.connect((host, port))
             self.client.send(nickname.encode('utf-8'))
             
-            print('[INFO] Successfully connected.')
+            print('[Admin] Successfully connected.')
             return True
         except:
             error = 'Unable to connect to Server'
-            print('[INFO]', error)
+            print('[Admin]', error)
             self.show_error('Connection Error', error)
             self.connect_ui.hostText.clear()
             self.connect_ui.portText.clear()
@@ -146,7 +146,7 @@ class Client(object):
             self.client.send(msg.encode('utf-8'))
         except:
             error = 'Unable to send message.'
-            print('[INFO]', error)
+            print('[Admin]', error)
             self.show_error('Server Error', error)
         
         self.chat_ui.sendText.clear()
