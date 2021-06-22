@@ -12,6 +12,7 @@ class listener(QtCore.QThread):
     signal = QtCore.pyqtSignal(str)
     running = True
 
+    # (listener instance [this], websocket, Client
     def __init__(self, client_socket, client):
         # get the parent constructor
         super(listener, self).__init__()
@@ -61,7 +62,6 @@ class Client(object):
         self.mainWindow.show()
         #create client/user
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
             
 
     def on_connectButtonClicked(self):
