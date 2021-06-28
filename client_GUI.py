@@ -102,7 +102,7 @@ class Client(object):
                 self.connectWidget.setHidden(True) #connect window not visible
                 self.chatWidget.setVisible(True) #chat window visible
                 self.mainWindow.setFixedSize(320, 510)
-                #start listender Thread to receive msgs
+                #start listener Thread to receive msgs
                 self.recv_thread = listener(self.client, self)
                 self.recv_thread.signal.connect(self.print_message)
                 self.recv_thread.start()

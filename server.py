@@ -14,7 +14,7 @@ directory = os.path.dirname(__file__)
 #create server
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((host, port))
-server.listen()
+server.listen() # enable a server to accept connections
 
 
 
@@ -23,7 +23,7 @@ def broadcast(message, sender):
     #sends msgs to all clients 
     if len(clients) > 0:
         for nickname in clients:
-            if nickname != sender:
+            if nickname != sender: # damit sender nachricht nicht doppelt erhält
                 now = str(datetime.now())[11:16]
                 msg = f'[{now}] - {sender}: {message}'
                 clients[nickname].send(msg.encode('utf-8'))
@@ -49,7 +49,7 @@ def handle_client(client, nickname):
         try:
             msg = client.recv(1024).decode('utf-8')
 
-            #if len(message) >= 4 and message[0:9] == "/private ": # falls /private nickname dann private messsage // slicing betrachtet die zeichen des strings // private hat 8 zeichen
+            # message[0:9] == "/private ": # falls /private nickname dann private message // slicing betrachtet die zeichen des strings // /private hat 8 zeichen
             if msg[0:9] == "/private ":
                 split = msg.split(" ")
                 # /private niklas hallo
@@ -67,7 +67,7 @@ def handle_client(client, nickname):
                 client.send('[Admin] To see users currently online please enter: !users \n'.encode('utf-8'))
             elif msg == '!users':
                 #get current users
-                users = clients.keys()
+                users = clients.keys() # key des dictionary ist der nickname
                 client.send(f'[Admin] Currently online in chat: '.encode('utf-8'))
                 for user in users:
                     client.send(f'{user} \n'.encode('utf-8'))
@@ -88,7 +88,7 @@ def handle_client(client, nickname):
 def receive():
     while True:
         #get client information
-        client, address = server.accept()
+        client, address = server.accept() # accept a connection
         print('[Admin] Connected with '+ str(address))
 
         #get entered nickname and add to dictionary
